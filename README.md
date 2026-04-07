@@ -42,9 +42,30 @@ The script will:
 
 You'll be prompted for your password once (to clear the macOS icon cache).
 
-### 3. Log out and back in
+### 3. Clear the macOS icon cache
 
-This is needed for macOS to pick up the new icon. You only have to do this once.
+macOS aggressively caches app icons, so the custom icon **won't appear until you clear the cache**. Run these commands in order:
+
+```bash
+sudo rm -rf /Library/Caches/com.apple.iconservices.store
+sudo find /private/var/folders/ -name com.apple.iconservices -exec rm -rf {} \; 2>/dev/null
+sudo killall Dock
+killall Finder
+```
+
+> The setup script attempts this automatically, but it doesn't always take effect until you complete step 4.
+
+### 4. Log out and back in
+
+**Apple menu > Log Out**, then log back in. This is required for macOS to pick up the new icon. You only have to do this once.
+
+### 5. Verify the icon
+
+```bash
+terminal-notifier -title "Claude Code" -message "Icon test" -appIcon ~/.claude/claude-icon.png -sound Glass
+```
+
+You should see a notification banner with the Claude Code icon. If it still shows the default terminal icon, **restart your Mac** and test again.
 
 That's it! You'll now get notification banners whenever Claude Code completes a task or needs your input.
 
