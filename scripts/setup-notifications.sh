@@ -82,12 +82,17 @@ echo ""
 echo "Step 2: Custom notification icon"
 echo "---------------------------------"
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(dirname "$SCRIPT_DIR")"
+BUNDLED_ICON="$REPO_DIR/claudecode-color.png"
+
 if [ -f "$ICON_FILE" ]; then
   info "Icon already exists at $ICON_FILE — using it."
+elif [ -f "$BUNDLED_ICON" ]; then
+  cp "$BUNDLED_ICON" "$ICON_FILE"
+  info "Copied bundled icon to $ICON_FILE"
 else
-  # Generate a pixel-art robot icon (orange space invader style)
-  # Users can replace ~/.claude/claude-icon.png with any 512x512+ PNG
-  echo "No icon found at $ICON_FILE."
+  echo "No icon found at $ICON_FILE or in the repo."
   echo "Please place a 512x512 (or larger) PNG at:"
   echo "  $ICON_FILE"
   echo ""

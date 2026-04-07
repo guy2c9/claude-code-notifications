@@ -26,13 +26,7 @@ git clone https://github.com/guybaxter/claude-code-notifications.git
 cd claude-code-notifications
 ```
 
-### 2. (Optional) Add a custom icon
-
-Place a PNG file (512x512 or larger) at `~/.claude/claude-icon.png`. This will appear in your notification banners.
-
-If you skip this step, notifications will use the default terminal-notifier icon.
-
-### 3. Run the setup script
+### 2. Run the setup script
 
 ```bash
 ./scripts/setup-notifications.sh
@@ -41,19 +35,24 @@ If you skip this step, notifications will use the default terminal-notifier icon
 The script will:
 
 1. Install `terminal-notifier` via Homebrew
-2. Convert your icon and apply it to the app bundle
-3. Add notification hooks to `~/.claude/settings.json`
-4. Send a test notification
+2. Copy the bundled Claude Code icon to `~/.claude/claude-icon.png` (if you don't already have one)
+3. Convert your icon and apply it to the app bundle
+4. Add notification hooks to `~/.claude/settings.json`
+5. Send a test notification
 
 You'll be prompted for your password once (to clear the macOS icon cache).
 
-### 4. Log out and back in
+### 3. Log out and back in
 
 This is needed for macOS to pick up the new icon. You only have to do this once.
 
 That's it! You'll now get notification banners whenever Claude Code completes a task or needs your input.
 
 ## Customisation
+
+### Use a different icon
+
+Replace `~/.claude/claude-icon.png` with any 512x512+ PNG, then re-run the setup script.
 
 ### Change notification sounds
 
@@ -64,10 +63,6 @@ Edit `~/.claude/settings.json` and change the `-sound` value in each hook. macOS
 ### Disable sounds entirely
 
 **System Settings > Notifications > terminal-notifier** — toggle off "Play sound for notifications".
-
-### Change the icon
-
-Replace `~/.claude/claude-icon.png` with any PNG, then re-run the setup script.
 
 ## After Homebrew upgrades
 
