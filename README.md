@@ -42,6 +42,8 @@ The script will:
 
 You'll be prompted for your password once (to clear the macOS icon cache).
 
+> **Important:** When the test notification fires, a notification permission alert will appear in the **top-right corner** of your screen. You **must click it and select "Allow"** to enable notifications. If you dismiss or deny it, notifications won't work — you can re-enable them later in **System Settings > Notifications > terminal-notifier**.
+
 ### 3. Clear the macOS icon cache
 
 macOS aggressively caches app icons, so the custom icon **won't appear until you clear the cache**. Run these commands in order:
