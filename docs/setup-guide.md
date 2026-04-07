@@ -145,9 +145,33 @@ Then log out and back in.
 
 ## Troubleshooting
 
+### Custom icon not showing
+
+macOS aggressively caches app icons. If the notification still shows the default icon after running the setup script:
+
+1. **Clear the icon cache manually:**
+
+   ```bash
+   sudo rm -rf /Library/Caches/com.apple.iconservices.store
+   sudo find /private/var/folders/ -name com.apple.iconservices -exec rm -rf {} \; 2>/dev/null
+   sudo killall Dock
+   killall Finder
+   ```
+
+2. **Log out and back in** (or restart your Mac).
+
+3. **Send a test notification** to confirm:
+
+   ```bash
+   terminal-notifier -title "Claude Code" -message "Icon test" -appIcon ~/.claude/claude-icon.png -sound Glass
+   ```
+
+If the icon still doesn't appear after a restart, re-run the full setup script — this re-applies the icon to the app bundle and clears the cache again.
+
+### Other issues
+
 | Problem | Solution |
 |---------|----------|
 | No notifications appear | Check **System Settings > Notifications > terminal-notifier** is enabled |
-| Default icon instead of custom | Log out and back in, or restart your Mac |
 | Icon reset after upgrade | Re-run `./setup-notifications.sh` |
 | Notifications too noisy | Disable sounds in System Settings (see above) |

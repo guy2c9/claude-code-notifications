@@ -22,7 +22,7 @@ Native macOS Notification Centre banners when Claude Code finishes a task or nee
 ### 1. Clone this repo
 
 ```bash
-git clone https://github.com/guybaxter/claude-code-notifications.git
+git clone https://github.com/guy2c9/claude-code-notifications.git
 cd claude-code-notifications
 ```
 
@@ -78,10 +78,34 @@ If you'd rather not run the script, see the [detailed setup guide](docs/setup-gu
 
 ## Troubleshooting
 
+### Custom icon not showing
+
+macOS aggressively caches app icons. If the notification still shows the default icon after running the setup script:
+
+1. **Clear the icon cache manually:**
+
+   ```bash
+   sudo rm -rf /Library/Caches/com.apple.iconservices.store
+   sudo find /private/var/folders/ -name com.apple.iconservices -exec rm -rf {} \; 2>/dev/null
+   sudo killall Dock
+   killall Finder
+   ```
+
+2. **Log out and back in** (or restart your Mac).
+
+3. **Send a test notification** to confirm:
+
+   ```bash
+   terminal-notifier -title "Claude Code" -message "Icon test" -appIcon ~/.claude/claude-icon.png -sound Glass
+   ```
+
+If the icon still doesn't appear after a restart, re-run the full setup script — this re-applies the icon to the app bundle and clears the cache again.
+
+### Other issues
+
 | Problem | Solution |
 |---------|----------|
 | No notifications appear | Check **System Settings > Notifications > terminal-notifier** is enabled |
-| Default icon instead of custom | Log out and back in, or restart your Mac |
 | Icon reset after upgrade | Re-run `./scripts/setup-notifications.sh` |
 | Notifications too noisy | Disable sounds in System Settings (see above) |
 
